@@ -1,0 +1,51 @@
+
+service: sls-twitter-bot
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  memorySize: 128
+  timeout: 30
+  stage: dev
+  region: eu-west-1
+  profile: ${self:custom.PROFILES.${self:provider.stage}}
+  environment:
+    REGION: ${self:custom.REGION}
+    STAGE: ${self:custom.STAGE}
+    CONSUMER_KEY: ${self:custom.ENV_VARS.CONSUMER_KEY, file(./env.json):CONSUMER_KEY}
+    CONSUMER_SECRET: ${self:custom.ENV_VARS.CONSUMER_SECRET, file(./env.json):CONSUMER_SECRET}
+    ACCESS_TOKEN_KEY: ${self:custom.ENV_VARS.ACCESS_TOKEN_KEY, file(./env.json):ACCESS_TOKEN_KEY}
+    ACCESS_TOKEN_SECRET: ${self:custom.ENV_VARS.ACCESS_TOKEN_SECRET, file(./env.json):ACCESS_TOKEN_SECRET}
+
+functions:
+  search:
+    handler: handler.search
+    events:
+    - http:
+        path: search
+        method: post
+        cors: true
+
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
+
+custom:
+  REGION: ${opt:region, self:provider.region}
+  STAGE: ${opt:stage, self:provider.stage}
+  ENV_VARS: ${file(./env.js):getEnvVars}
+  PROFILES:
+    dev: neo-dev
+
+  serverless-offline:
+    port: 3001
+    babelOptions:
+      presets: ["env"]
+
+  webpackIncludeModules:
+    packagePath: './package.json'

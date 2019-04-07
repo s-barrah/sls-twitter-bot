@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "flowtype"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "arrow-body-style": "off",
+    "import/prefer-default-export": "off",
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "global-require": "off", // Requires are necessary to include json files.
+    "no-param-reassign": "off", // We need to be able to reasign context, as this is a requirement of our lambdas.
+    "max-len": "off",
+    "class-methods-use-this": "off",
+    "flowtype/no-types-missing-file-annotation": "off",
+    "consistent-return": "off"
+  }
+}

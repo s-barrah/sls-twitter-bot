@@ -1,0 +1,14 @@
+{
+  "query": {
+    "presence": true
+  },
+  "count": {
+    "presence": true
+  },
+  "result_type": {
+    "presence": true
+  },
+  "lang": {
+    "presence": true
+  }
+}

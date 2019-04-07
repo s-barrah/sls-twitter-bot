@@ -1,0 +1,7 @@
+
+node_modules/**
+build/**
+ci/**
+.serverless/**
+tests/**
+env.js

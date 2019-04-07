@@ -1,0 +1,6 @@
+{
+  "name": "SB Twitter Service",
+  "description": "This is the API endpoint for the SB Twitter service",
+  "title": "Twitter Service",
+  "url" : "https://twitter.sls.sb.com"
+}
