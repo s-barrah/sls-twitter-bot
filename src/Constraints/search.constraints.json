@@ -1,5 +1,5 @@
 {
-  "query": {
+  "q": {
     "presence": true
   },
   "count": {

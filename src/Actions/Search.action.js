@@ -7,6 +7,8 @@ import RequestService from '../Services/Request.service';
 import LoggerService from '../Services/Logger.service';
 import TwitterService from '../Services/Twitter.service';
 
+import SearchModel from '../Model/Search.model';
+
 const constraints = require('../Constraints/search.constraints.json');
 
 
@@ -20,19 +22,14 @@ export default RavenLambdaWrapper.handler(Raven, (event, context) => {
 
   const Request = new RequestService(event);
   let response = {};
-  let data = Request.getAll();
 
-
-  const params = {
-    q: '#bbnaija',
-    count: 10,
-    result_type: 'recent',
-    lang: 'en'
-  };
+  // store search model
+  const searchModel = new SearchModel().hydrateFromEntity(Request.getAll());
+  let data = searchModel.getEntityMappings();
 
   Request.validateAgainstConstraints(data)
     .then(() => {
-      return Twitter.search(params);
+      return Twitter.search(data);
     })
     .then((results) => {
       response = new ResponseService({results}, 200, 'Twitter search has been processed');
