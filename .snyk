@@ -6,3 +6,6 @@ patch:
   SNYK-JS-LODASH-567746:
     - winston > async > lodash:
         patched: '2020-05-01T06:39:17.937Z'
+  SNYK-JS-LODASH-450202:
+    - winston > async > lodash:
+        patched: '2020-05-06T08:25:07.601Z'
